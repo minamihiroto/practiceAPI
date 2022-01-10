@@ -6,8 +6,12 @@ const port = 3000
 app.use(express.json())
 
 app.post('/booklog', (req,res)=>{
+  // requestのbodyをそのまま定数に入れている
+  const booklog = req.body
+
   res.json({
-      'ok': true
+      'ok': true,
+      'booklog': booklog
     })
 })
 
