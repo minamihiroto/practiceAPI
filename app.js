@@ -1,13 +1,14 @@
 const express = require("express");
 const app = express();
 const port = 3000;
+let booklog = {};
 
 // jsonを使えるように宣言
 app.use(express.json());
 
 app.post("/booklog", (req, res) => {
   // requestのbodyをそのまま定数に入れている
-  const booklog = req.body;
+  booklog = req.body;
 
   if (booklog.name && booklog.text) {
     res.json({
@@ -17,9 +18,16 @@ app.post("/booklog", (req, res) => {
   } else {
     res.json({
       ok: false,
-      error: 'nameかtextがrequestされていません'
+      error: "nameかtextがrequestされていません",
     });
   }
+});
+
+app.get("/booklog", (req, res) => {
+  res.json({
+    ok: true,
+    booklog: [booklog],
+  });
 });
 
 // node app.jsで起動
